@@ -1,14 +1,9 @@
 package Assignment4.src.Concrete;
 
-import Assignment4.src.Interfaces.CustomerService;
-import Assignment4.src.Models.Customer;
+import Assignment4.src.Abstract.BaseCustomerManager;
 
-public class NeroCustomerManager implements CustomerService{
+public class NeroCustomerManager extends BaseCustomerManager{
 
-    @Override
-    public void Save(Customer customer) {
-        // TODO Auto-generated method stub
-        
-    }
+
     
 }

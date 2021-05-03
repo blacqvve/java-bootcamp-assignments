@@ -1,14 +1,22 @@
 package Assignment4.src.Models;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Customer {
     private int id;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String nationalityId;
 
+    public Customer(int id, String firstName, String lastName, LocalDate dateOfBirth, String nationalityId) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.nationalityId = nationalityId;
+    }
 
     public int getId() {
         return this.id;
@@ -34,11 +42,11 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return this.dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
