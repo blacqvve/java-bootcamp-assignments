@@ -63,13 +63,19 @@ public class Main {
 
         Discount simulationDiscount = new Discount(1, LocalDate.of(2022, 1, 1), 0.3, new String[]{"Simulation"});
 
+        Discount expiredDiscount =  new Discount(2,LocalDate.of(2021, 1, 1),0.2,new String[]{"FPS"});
+
         DiscountManager discountManager = new DiscountManager();
 
         Game discountedGame = discountManager.UseDiscount(rimworld, simulationDiscount);
 
+        Game discountFailedGame = discountManager.UseDiscount(halfLife,expiredDiscount);
+
         SaleManager saleManager = new SaleManager();
 
         saleManager.sale(jane, discountedGame);
+
+        saleManager.sale(jane, discountFailedGame);
 
     }
 }

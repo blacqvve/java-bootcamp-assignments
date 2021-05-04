@@ -1,5 +1,7 @@
 package Concerete;
 
+import java.time.LocalDate;
+
 import Entities.Discount;
 import Entities.Game;
 import Interfaces.DiscountService;
@@ -8,7 +10,7 @@ public class DiscountManager implements DiscountService {
 
     @Override
     public Game UseDiscount(Game game, Discount discount) {
-        if(discountContainsCategory(game.getCategory(), discount)){
+        if(discountContainsCategory(game.getCategory(), discount) && discountStillValid(discount)){
             Game discountedGame = new Game(game);
             discountedGame.setPrice(calculateDiscount(game.getPrice(), discount.getDiscountAmount()));
             System.out.println(discount.getDiscountAmount()*100+"% discount applied to " + game.getTitle());
@@ -22,7 +24,7 @@ public class DiscountManager implements DiscountService {
     public Game UseDiscount(Game game, Discount[] discounts) {
         double totalDiscount = 0;
         for (Discount discount : discounts){
-            if (discountContainsCategory(game.getCategory(), discount)){
+            if (discountContainsCategory(game.getCategory(), discount) && discountStillValid(discount)){
                 totalDiscount += discount.getDiscountAmount();
             }
         }
@@ -40,6 +42,10 @@ public class DiscountManager implements DiscountService {
 
     private double calculateDiscount(double price,double totalDiscount){
         return price - (price * totalDiscount);
+    }
+
+    private boolean discountStillValid(Discount discount){
+        return discount.getValidUntil().compareTo(LocalDate.now())>0;
     }
 
     private boolean discountContainsCategory(String category,Discount discount){
