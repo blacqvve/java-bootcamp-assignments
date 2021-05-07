@@ -3,42 +3,61 @@ package dataAccess.concretes;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.LoggerService;
 import dataAccess.abstracts.UserDao;
 import entities.concretes.User;
 
-public class HibernateUserDao implements UserDao{
+public class HibernateUserDao implements UserDao {
 
     List<User> users = new ArrayList<User>();
 
-    
+    private LoggerService logger;
+
+    public HibernateUserDao(LoggerService logger){
+        this.logger = logger;
+    }
+
     @Override
     public void add(User user) {
-        // TODO Auto-generated method stub
-        
+        users.add(user);
+        logger.log("User added " + user.getId());
+
     }
 
     @Override
     public void update(User user) {
-        // TODO Auto-generated method stub
-        
+        var existingUser = users.stream().filter(x -> x.getId() == user.getId()).findAny().orElse(null);
+
+        if (existingUser == null)
+        {
+            logger.log("User not found " + user.getId());
+            return;
+        }
+        existingUser = user;
+
+        logger.log("User updated " + user.getId());
+
     }
 
     @Override
     public void delete(User user) {
-        // TODO Auto-generated method stub
-        
+
+        if (users.contains(user)){
+            users.remove(user);
+            logger.log("User deleted "+ user.getId());
+        }
+
     }
 
     @Override
     public User get(int id) {
-        // TODO Auto-generated method stub
-        return null;
+    
+        return users.stream().filter(x -> x.getId()==id).findAny().orElse(null);
     }
 
     @Override
     public List<User> getAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return new ArrayList<User>(users);
     }
-    
+
 }
