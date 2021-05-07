@@ -15,6 +15,10 @@ public class User implements ApplicationUser {
     private String surname;
 
 
+    private String confirmationToken;
+
+    private boolean emailConfirmed = false;
+
     public User(int id, String email, String password, String name, String surname) {
         this.id = id;
         this.email = email;
@@ -62,5 +66,23 @@ public class User implements ApplicationUser {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+    public String getConfirmationToken() {
+        return this.confirmationToken;
+    }
 
+    public void setConfirmationToken(String confirmationToken) {
+        this.confirmationToken = confirmationToken;
+    }
+
+    public boolean isEmailConfirmed() {
+        return this.emailConfirmed;
+    }
+
+    public boolean getEmailConfirmed() {
+        return this.emailConfirmed;
+    }
+
+    public void setEmailConfirmed(boolean emailConfirmed) {
+        this.emailConfirmed = emailConfirmed;
+    }
 }
