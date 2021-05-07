@@ -15,7 +15,11 @@ public class NameValidator implements Validator<String> {
             if (Character.isLetter(chr))
                 letterCount++;
         }
-        return letterCount > MIN_LETTER_COUNT;
+
+        boolean valid = letterCount > MIN_LETTER_COUNT;
+        
+        System.out.println(object +" is a valid name or surname" + valid);
+        return valid;
     }
 
 }

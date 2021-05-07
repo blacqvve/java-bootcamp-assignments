@@ -9,7 +9,10 @@ public class PasswordValidator implements Validator<String> {
     @Override
     public boolean validate(String object) {
         
-        return object.length() > MIN_PASSWORD_LENGHT;
+        boolean valid = object.length() > MIN_PASSWORD_LENGHT;
+
+        System.out.println(object + "is valid password " + valid );
+        return valid;
     }
     
 }
