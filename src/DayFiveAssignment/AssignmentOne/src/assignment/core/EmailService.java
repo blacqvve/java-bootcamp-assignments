@@ -1,5 +1,7 @@
 package core;
 
 public interface EmailService {
-    String sendConfirmationEmail(String to);
+    void sendConfirmationEmail(String to);
+
+    String sendConfirmationEmailWithToken(String to);
 }

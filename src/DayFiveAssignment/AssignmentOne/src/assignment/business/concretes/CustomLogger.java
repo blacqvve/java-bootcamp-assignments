@@ -7,7 +7,7 @@ public class CustomLogger implements LoggerService {
     @Override
     public void log(String message) {
 
-        System.out.print("Custom Logger : " + message);
+        System.out.println("Custom Logger : " + message);
         
     }
     

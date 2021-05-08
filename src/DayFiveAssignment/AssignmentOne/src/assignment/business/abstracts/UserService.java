@@ -9,4 +9,6 @@ public interface UserService {
     void update(User user);
     
     User getUser(int id);
+
+    User getUser(String email);
 }

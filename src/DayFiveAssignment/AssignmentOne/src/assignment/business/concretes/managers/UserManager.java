@@ -4,6 +4,7 @@ import java.util.List;
 
 import business.abstracts.UserService;
 import business.abstracts.Validator;
+import core.EmailService;
 import core.LoggerService;
 import dataAccess.abstracts.UserDao;
 import entities.concretes.User;
@@ -16,10 +17,14 @@ public class UserManager implements UserService{
 
     private LoggerService logger;
 
-    public UserManager(UserDao userDao,Validator<User> uValidator,LoggerService logger){
+    private EmailService emailService;
+    
+
+    public UserManager(UserDao userDao,Validator<User> uValidator,LoggerService logger, EmailService emailService){
         this.userDao = userDao;
         this.userValidator = uValidator;
         this.logger = logger;
+        this.emailService = emailService;
     }
 
     @Override
@@ -33,6 +38,7 @@ public class UserManager implements UserService{
 
        if (userValidator.validate(user))
        {
+           user.setConfirmationToken(emailService.sendConfirmationEmailWithToken(user.getEmail()));
            userDao.add(user);
            logger.log("Register successfull " + user.getId());
        }
@@ -45,7 +51,6 @@ public class UserManager implements UserService{
 
             return;
         }
-
         userDao.update(user);
     }
     
@@ -54,6 +59,15 @@ public class UserManager implements UserService{
         return null;
     }
 
+    
+    @Override
+    public User getUser(String email) {
+        List<User> users = userDao.getAll();
+        
+        User requestedUser = users.stream().filter(x -> x.getEmail().toLowerCase() == email.toLowerCase()).findAny().orElse(null);
+
+        return requestedUser;
+    }
     private boolean checkIsDuplicateEmailAddress(String email){
 
         List<User> users = userDao.getAll();
@@ -62,6 +76,7 @@ public class UserManager implements UserService{
 
         return possibleDuplicate != null;
     }
+
 
 
 }
