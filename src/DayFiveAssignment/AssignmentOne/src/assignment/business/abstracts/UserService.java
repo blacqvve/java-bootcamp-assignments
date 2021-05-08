@@ -2,7 +2,7 @@ package business.abstracts;
 
 import entities.concretes.User;
 
-public interface UserService {
+public interface UserService extends RegisterServiceProvider {
     
     void register(User user);
 

@@ -1,5 +1,6 @@
 import business.abstracts.EmailConfirmationService;
 import business.abstracts.LoginServiceProvider;
+import business.abstracts.RegisterServiceProvider;
 import business.abstracts.TokenFactory;
 import business.abstracts.UserService;
 import business.abstracts.Validator;
@@ -61,7 +62,13 @@ public class App {
 
         LoginServiceProvider googleAuthServiceProvider = new GoogleAuthAdapter(logger);
 
+        RegisterServiceProvider googleAuthRegisterProvider = new GoogleAuthAdapter(logger);
+
+        googleAuthRegisterProvider.register(jane);
+        
         googleAuthServiceProvider.login(jane);
+
+        
         
     }
 }
