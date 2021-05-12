@@ -19,7 +19,6 @@ CREATE TABLE public."JobSeekers"
     "DateOfBirth" date NOT NULL,
     "NationalIdentityNumber" character varying(11) NOT NULL,
     "ConfirmationId" integer NOT NULL,
-    "JobTitleId" integer,
     PRIMARY KEY ("UserId")
 );
 
@@ -64,10 +63,11 @@ CREATE TABLE public."UserConfirmation"
     PRIMARY KEY ("ConfirmationId")
 );
 
-CREATE TABLE public."JobTitles"
+CREATE TABLE public."JobPositions"
 (
     "Id" integer NOT NULL,
-    "Title" character varying(50) NOT NULL,
+    "Name" character varying(50) NOT NULL,
+    "CreateDate" date NOT NULL,
     PRIMARY KEY ("Id")
 );
 
@@ -116,12 +116,6 @@ ALTER TABLE public."UserConfirmation"
 ALTER TABLE public."UserConfirmation"
     ADD FOREIGN KEY ("ValidatorUser")
     REFERENCES public."Users" ("Id")
-    NOT VALID;
-
-
-ALTER TABLE public."JobSeekers"
-    ADD FOREIGN KEY ("JobTitleId")
-    REFERENCES public."JobTitles" ("Id")
     NOT VALID;
 
 END;
