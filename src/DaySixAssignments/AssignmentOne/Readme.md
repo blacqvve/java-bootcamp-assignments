@@ -1,1 +1,1 @@
-![ERD](https://github.com/blacqvve/java-bootcamp-assignments/blob/main/src/DaySixAssignment/AssignmentOne/hrmserd.png?raw=true)
+![ERD](https://github.com/blacqvve/java-bootcamp-assignments/blob/main/src/DaySixAssignments/AssignmentOne/hrmserd.png?raw=true)
