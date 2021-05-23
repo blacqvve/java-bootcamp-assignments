@@ -12,18 +12,18 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="JobPositions")
+@Table(name="jobpositions")
 public class JobPosition {
     
     @Id
     @GeneratedValue
-    @Column(name="Id")
+    @Column(name="id")
     private int id;
 
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "CreateDate")
+    @Column(name = "createDate")
     private LocalDateTime createDate;
 }
