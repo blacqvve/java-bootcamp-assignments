@@ -1,7 +1,5 @@
 package com.hrms.hrms.entities.concretes;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,18 +10,11 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="job_positions")
-public class JobPosition {
-    
-    @Id
-    @GeneratedValue
-    @Column(name="id")
-    private int id;
-
-
+@Table(name = "system_user")
+public class SystemUser extends User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "createDate")
-    private LocalDateTime createDate;
+    @Column(name = "surname")
+    private String surname;
 }
