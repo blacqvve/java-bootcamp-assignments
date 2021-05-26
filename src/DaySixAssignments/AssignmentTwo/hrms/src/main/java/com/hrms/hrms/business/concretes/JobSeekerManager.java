@@ -7,7 +7,12 @@ import com.hrms.hrms.core.utilities.results.DataResult;
 import com.hrms.hrms.core.utilities.results.Result;
 import com.hrms.hrms.entities.concretes.JobSeeker;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class JobSeekerManager implements JobSeekerService{
+
+    
 
     @Override
     public DataResult<List<JobSeeker>> getAll() {
