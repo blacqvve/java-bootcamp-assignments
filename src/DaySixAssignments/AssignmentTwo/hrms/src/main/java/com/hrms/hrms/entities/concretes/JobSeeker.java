@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -25,4 +27,7 @@ public class JobSeeker extends User {
     @Column(name = "national_identity_number")
     private String nationalIdentityNumber;
     
+    @OneToOne()
+    @JoinColumn(name = "confirmation_id")
+    private EmailConfirmation emailConfirmation;
 }
