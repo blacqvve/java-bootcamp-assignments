@@ -20,6 +20,4 @@ public class SystemUser extends User {
     @Column(name = "surname")
     private String surname;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private UserConfirmation userConfirmation;
 }
