@@ -30,11 +30,11 @@ public class JobSeekerManager implements JobSeekerService {
 
     private Validator<String> emailValidator;
 
-    private EmailConfirmationService emailConfirmationService;
+    private EmailConfirmationService<JobSeeker> emailConfirmationService;
 
     @Autowired
     private JobSeekerManager(JobSeekerDao jobSeekerDao, MernisKPSAdapter mernisAdapter,
-            @Qualifier("emailValidator") Validator<String> emailValidator,EmailConfirmationService emailConfirmationService) {
+            @Qualifier("emailValidator") Validator<String> emailValidator,EmailConfirmationService<JobSeeker> emailConfirmationService) {
         this.jobSeekerDao = jobSeekerDao;
         this.mernisAdapter = mernisAdapter;
         this.emailValidator = emailValidator;

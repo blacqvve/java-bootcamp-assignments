@@ -14,6 +14,5 @@ import lombok.Data;
 public class UserConfirmation extends Confirmation{
     
     @OneToOne
-    @JoinColumn(name = "validator_user_id")
     private SystemUser validatorUser;
 }
