@@ -1,6 +1,8 @@
 package com.hrms.hrms.business.concretes;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import com.hrms.hrms.business.abstracts.EmailConfirmationService;
 import com.hrms.hrms.business.abstracts.JobPosterService;
@@ -12,8 +14,10 @@ import com.hrms.hrms.core.utilities.results.SuccessDataResult;
 import com.hrms.hrms.core.utilities.results.SuccessResult;
 import com.hrms.hrms.core.utilities.validators.abstracts.Validator;
 import com.hrms.hrms.dataAccess.abstracts.JobPosterDao;
+import com.hrms.hrms.dataAccess.abstracts.SystemUserDao;
 import com.hrms.hrms.entities.concretes.EmailConfirmation;
 import com.hrms.hrms.entities.concretes.JobPoster;
+import com.hrms.hrms.entities.concretes.SystemUser;
 import com.hrms.hrms.entities.concretes.UserConfirmation;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +29,20 @@ public class JobPosterManager implements JobPosterService {
 
     private JobPosterDao jobPosterDao;
 
+    private SystemUserDao systemUserDao;
+
     private Validator<BasicTuple<String, String>> emailValidator;
 
     private EmailConfirmationService<JobPoster> emailConfirmationService;
 
     @Autowired
-    private JobPosterManager(JobPosterDao jobPosterDao,
+    private JobPosterManager(JobPosterDao jobPosterDao,SystemUserDao systemUserDao,
             @Qualifier("domainEmailValidator") Validator<BasicTuple<String, String>> emailValidator,
             EmailConfirmationService<JobPoster> emailConfirmationService) {
         this.jobPosterDao = jobPosterDao;
         this.emailValidator = emailValidator;
         this.emailConfirmationService = emailConfirmationService;
+        this.systemUserDao = systemUserDao;
     }
 
     @Override
@@ -68,14 +75,48 @@ public class JobPosterManager implements JobPosterService {
 
     @Override
     public Result emailConfirm(String token, int userId) {
-        // TODO Auto-generated method stub
-        return null;
+        Optional<JobPoster> jobPoster = jobPosterDao.findById(userId);
+
+        if(!jobPoster.isPresent()){
+            return new ErrorResult("User not found");
+        }
+        boolean confirmation = emailConfirmationService.validateConfirmationToken(token, jobPoster.get());
+
+        if(confirmation){
+            jobPoster.get().getEmailConfirmation().setConfirmed(confirmation);
+            jobPoster.get().getEmailConfirmation().setConfirmationDate(LocalDate.now());
+            try {
+                jobPosterDao.save(jobPoster.get());
+                return new Result(confirmation,"email confirmed");
+            } catch (Exception e) {
+                return new ErrorResult(e.getMessage());
+            }
+        }
+        else{
+            return new ErrorResult("user email not confirmed");
+        }
+        
     }
 
     @Override
     public Result userConfirm(int confirmedUserId, int confirmerUserId) {
-        // TODO Auto-generated method stub
-        return null;
+        Optional<JobPoster> confirmedUser = jobPosterDao.findById(confirmedUserId);
+        Optional<SystemUser> confirmerUser = systemUserDao.findById(confirmerUserId);
+
+        if(!confirmedUser.isPresent() || !confirmerUser.isPresent()){
+            return new ErrorResult("Confirmed or confirmer user not found");
+        }
+
+        try {
+            confirmedUser.get().getUserConfirmation().setValidatorUser(confirmerUser.get());
+            confirmedUser.get().getUserConfirmation().setConfirmed(true);
+            confirmedUser.get().getUserConfirmation().setConfirmationDate(LocalDate.now());
+
+            jobPosterDao.save(confirmedUser.get());
+            return new SuccessResult("User confirmed");
+        } catch (Exception e) {
+            return new ErrorResult(e.getMessage());
+        }
     }
 
 }

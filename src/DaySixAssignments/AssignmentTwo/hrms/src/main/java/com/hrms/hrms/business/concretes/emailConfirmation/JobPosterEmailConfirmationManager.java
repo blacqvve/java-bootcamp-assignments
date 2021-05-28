@@ -32,8 +32,7 @@ public class JobPosterEmailConfirmationManager implements EmailConfirmationServi
 
     @Override
     public boolean validateConfirmationToken(String token, JobPoster user) {
-        // TODO Auto-generated method stub
-        return false;
+        return token.equals(user.getEmailConfirmation().getConfirmationToken());
     }
     
 }
