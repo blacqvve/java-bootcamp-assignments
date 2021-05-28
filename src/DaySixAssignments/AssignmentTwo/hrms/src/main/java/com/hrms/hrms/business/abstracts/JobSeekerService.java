@@ -11,4 +11,8 @@ public interface JobSeekerService {
     DataResult<List<JobSeeker>> getAll();
 
     Result add(JobSeeker jobSeeker);
+
+    Result update(JobSeeker jobSeeker);
+
+    Result confirmUser(String token, int userId);
 }

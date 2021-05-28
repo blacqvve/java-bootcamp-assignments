@@ -15,12 +15,12 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "confirmations")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Confirmation {
     @Id
     @GeneratedValue
-    @Column(name = "id")
-    private int id;
+    @Column(name = "confirmation_id")
+    private int confirmationId;
 
     @Column(name = "confirmed")
     private Boolean confirmed;

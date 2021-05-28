@@ -34,4 +34,6 @@ public class JobPositionsController {
     public Result add(@RequestBody JobPosition newPosition){
         return jobPostingService.add(newPosition);
     }
+
+
 }

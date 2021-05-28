@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
 
-@Component
+@Component("emailValidator")
 public class EmailValidator implements Validator<String> {
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
