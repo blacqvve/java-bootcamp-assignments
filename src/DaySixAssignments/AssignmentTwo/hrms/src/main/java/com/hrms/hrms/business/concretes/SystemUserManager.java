@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.hrms.hrms.business.abstracts.SystemUserService;
 import com.hrms.hrms.core.utilities.results.DataResult;
+import com.hrms.hrms.core.utilities.results.ErrorResult;
 import com.hrms.hrms.core.utilities.results.Result;
 import com.hrms.hrms.core.utilities.results.SuccessDataResult;
+import com.hrms.hrms.core.utilities.results.SuccessResult;
 import com.hrms.hrms.dataAccess.abstracts.SystemUserDao;
 import com.hrms.hrms.entities.concretes.SystemUser;
 
@@ -28,9 +30,18 @@ public class SystemUserManager implements SystemUserService {
     }
 
     @Override
-    public Result add() {
-        // TODO Auto-generated method stub
-        return null;
+    public Result add(SystemUser systemUser) {
+        if(systemUser == null){
+            return new ErrorResult("User cannot be null");
+        }
+
+        try {
+            systemUserDao.save(systemUser);
+            return new SuccessResult("User added successfully");
+        } catch (Exception e) {
+            return new ErrorResult(e.getMessage());
+        }
+        
     }
     
 }

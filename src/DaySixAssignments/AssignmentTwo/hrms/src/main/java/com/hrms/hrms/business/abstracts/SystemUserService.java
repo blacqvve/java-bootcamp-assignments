@@ -9,5 +9,5 @@ import com.hrms.hrms.entities.concretes.SystemUser;
 public interface SystemUserService {
     DataResult<List<SystemUser>> getAll();
 
-    Result add();
+    Result add(SystemUser systemUser);
 }
