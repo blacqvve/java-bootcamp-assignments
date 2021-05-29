@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.validation.constraints.Email;
 
-import com.hrms.hrms.apiController.dataTransferObjects.JobSeekerConfirmationDto;
-import com.hrms.hrms.apiController.dataTransferObjects.JobSeekerRegisterDto;
 import com.hrms.hrms.business.abstracts.JobSeekerService;
 import com.hrms.hrms.core.utilities.results.DataResult;
 import com.hrms.hrms.core.utilities.results.ErrorResult;
 import com.hrms.hrms.core.utilities.results.Result;
 import com.hrms.hrms.core.utilities.results.SuccessDataResult;
 import com.hrms.hrms.entities.concretes.JobSeeker;
+import com.hrms.hrms.entities.dataTransferObjects.JobSeekerConfirmationDto;
+import com.hrms.hrms.entities.dataTransferObjects.JobSeekerRegisterDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

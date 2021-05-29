@@ -1,4 +1,4 @@
-package com.hrms.hrms.apiController.dataTransferObjects;
+package com.hrms.hrms.entities.dataTransferObjects;
 
 import java.time.LocalDate;
 
