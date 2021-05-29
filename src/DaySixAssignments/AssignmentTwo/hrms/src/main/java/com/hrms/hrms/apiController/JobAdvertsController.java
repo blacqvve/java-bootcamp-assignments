@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -54,4 +55,26 @@ public class JobAdvertsController {
 
         return jobAdvertService.add(newJob);
     }
+
+    @PostMapping("changeActiveState")
+    public Result changeActiveState(@RequestParam("advertId") int advertId,@RequestParam("activeState") boolean activeState){
+        return jobAdvertService.changeActiveState(advertId, activeState);
+    }
+
+    @GetMapping("getActives")
+    public DataResult<List<JobAdvertDisplayDto>> getActives(){
+        return jobAdvertService.getByActiveState(true);
+    }
+
+    @GetMapping("getActivesOrderByLastAppDate")
+    public DataResult<List<JobAdvertDisplayDto>> getActivesOrderByLastAppDate(){
+        return jobAdvertService.getByActiveStateOrderByLastApplicationDate(true);
+    }
+    
+    @GetMapping("getCompanyAdverts")
+    public DataResult<List<JobAdvertDisplayDto>> getCompanyAdverts(@RequestParam("ownerId") int ownerId){
+        return jobAdvertService.getByOwner_Id(ownerId);
+    }
+
+
 }

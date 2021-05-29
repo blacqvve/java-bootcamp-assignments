@@ -78,26 +78,41 @@ public class JobAdvertManager implements JobAdvertService {
 
     @Override
     public Result changeActiveState(int advertId, boolean state) {
-        // TODO Auto-generated method stub
-        return null;
+        Optional<JobAdvert> jobAdvert = jobAdvertDao.findById(advertId);
+
+        if(!jobAdvert.isPresent())
+            return new ErrorResult("Job advert not found");
+
+        try {
+            jobAdvert.get().setActiveState(state);
+            return new SuccessResult("State changed");
+        } catch (Exception e) {
+            return new ErrorResult(e.getMessage());
+
+        }
     }
 
     @Override
     public DataResult<List<JobAdvertDisplayDto>> getByActiveState(boolean activeState) {
-        // TODO Auto-generated method stub
-        return null;
+        return mapAndReturnData(jobAdvertDao.getByActiveState(activeState)); 
     }
 
     @Override
     public DataResult<List<JobAdvertDisplayDto>> getByActiveStateOrderByLastApplicationDate(boolean activeState) {
-        // TODO Auto-generated method stub
-        return null;
+        return mapAndReturnData(jobAdvertDao.getByActiveStateOrderByLastApplicationDate(activeState));
     }
 
     @Override
     public DataResult<List<JobAdvertDisplayDto>> getByOwner_Id(int ownerId) {
-        // TODO Auto-generated method stub
-        return null;
+        return mapAndReturnData(jobAdvertDao.getByOwner_Id(ownerId));
     }
 
+    private DataResult<List<JobAdvertDisplayDto>> mapAndReturnData(List<JobAdvert> adverts){
+        List<JobAdvertDisplayDto> returnList = new ArrayList<JobAdvertDisplayDto>();
+
+        for(JobAdvert advert : adverts){
+            returnList.add(new JobAdvertDisplayDto(advert));
+        }
+        return new SuccessDataResult<List<JobAdvertDisplayDto>>(returnList);
+    }
 }
