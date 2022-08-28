@@ -1,11 +1,12 @@
 package com.hrms.hrms.entities.concretes;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -36,4 +37,7 @@ public class JobSeeker extends User {
     
     @OneToOne(cascade = CascadeType.ALL)
     private EmailConfirmation emailConfirmation;
+
+    @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL)
+    private List<Resume> resumes;
 }

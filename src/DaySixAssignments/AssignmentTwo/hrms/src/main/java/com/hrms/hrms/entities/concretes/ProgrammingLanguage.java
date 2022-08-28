@@ -11,19 +11,15 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "language_infos")
-public class LanguageInfo {
-    
+@Table(name = "programming_languages")
+public class ProgrammingLanguage {
     @Id
     @GeneratedValue
-    @Column(name = "language_info_id")
-    private int languageInfoId;
+    @Column(name = "programming_language_id")
+    private int programmingLanguageId;
 
-    @Column(name = "name")
+    @Column(name = "languageName")
     private String languageName;
-
-    @Column(name = "grade")
-    private int grade;
 
     @ManyToOne
     private Resume resume;
